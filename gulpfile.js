@@ -19,24 +19,13 @@ gulp.task('vendor-copy', function(){
 
 gulp.task('js', function(){
     gulp.src('js/entry.js')
-        .pipe(gulpWebpack({
-            context: path.join(__dirname, 'js'),
-            entry: {
-                app: path.join(__dirname, 'js', 'entry.js'),
-                vendor: ['jquery', 'knockout']
-            },
-            output: {
-                path: path.join(__dirname, 'dist', 'js'),
-                filename: 'bundle.js'
-            },
+        .pipe(gulpWebpack(getWebpackConfig(false)))
+        .pipe(gulp.dest('dist/js'));
+});
 
-            resolve: {
-                modulesDirectories: [path.join(__dirname, 'js'), 'node_modules']
-            },
-            plugins: [
-                new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js")
-            ]
-        }))
+gulp.task('js-min', function(){
+    gulp.src('js/entry.js')
+        .pipe(gulpWebpack(getWebpackConfig(true)))
         .pipe(gulp.dest('dist/js'));
 });
 
@@ -45,3 +34,34 @@ gulp.task('watch', function(){
 })
 
 gulp.task('all', ['vendor-copy', 'vendor-css', 'js']);
+gulp.task('all-min', ['vendor-copy', 'vendor-css', 'js-min']);
+
+function getWebpackConfig(isOptimize)
+{
+    var plugins = [
+        new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js")
+    ];
+
+    if (isOptimize) {
+        plugins.push(new webpack.optimize.DedupePlugin());
+        plugins.push(new webpack.optimize.UglifyJsPlugin());
+    };
+
+    var config = {
+        context: path.join(__dirname, 'js'),
+        entry: {
+            app: path.join(__dirname, 'js', 'entry.js'),
+            vendor: ['jquery', 'knockout']
+        },
+        output: {
+            path: path.join(__dirname, 'dist', 'js'),
+            filename: 'bundle.js'
+        },
+
+        resolve: {
+            modulesDirectories: [path.join(__dirname, 'js'), 'node_modules']
+        },
+        plugins: plugins
+    };
+    return config;
+}
