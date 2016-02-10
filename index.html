@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="dist/css/vendor.css" rel="stylesheet">
+    <link href="css/app.css" rel="stylesheet">
+
+    <script type="text/javascript" src="dist/js/vendor.bundle.js"></script>
+    <script type="text/javascript" src="dist/js/bundle.js"></script>
+    <title>Weather</title>
+</head>
+<body class="app-body">
+    <div class="container app-container">
+        <form>
+            <select class="form-control" id="city">
+                <option value="Voronezh">Voronezh</option>
+                <option value="Moscow">Moscow</option>
+                <option value="Saint-Petersburg">Saint-Petersburg</option>
+            </select>
+        </form>
+
+        <h3>Forecast</h3>
+        <div class="row">
+            <div class="col-md-8">
+                <table class="app-forecast table table-bordered table-responsive">
+                    <thead>
+                    <tr>
+                        <th>Day</th>
+                        <th>Temperature</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody data-bind="foreach: forecast">
+                        <tr>
+                            <td><span data-bind="text: date"> </span>, <span data-bind="text: day"> </span></td>
+                            <td>From <span data-bind="text: low"> </span> to <span data-bind="text: high"> </span></td>
+                            <td><span data-bind="text: text"> </span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

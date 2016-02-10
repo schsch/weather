@@ -1,0 +1,13 @@
+.app-container {
+    padding-top: 50px;
+}
+
+.app-forecast {
+    margin-top: 10px;
+}
+
+@media (min-width: 1200px) {
+    .app-container {
+        width: 970px;
+    }
+}
