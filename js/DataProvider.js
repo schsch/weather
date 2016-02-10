@@ -44,7 +44,7 @@ DataProvider.prototype.setErrorCallback = function(callback){
  */
 DataProvider.prototype.loadWeatherDataByCity = function(city){
     $('#yahoo').remove();
-    $('body').append("<script id=\"yahoo\" src=\"https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where woeid in (select woeid from geo.places(1) where text='"+city+"')&format=json&callback="+this.jsonpCallbackName+"\"></script>");
+    $('body').append("<script id=\"yahoo\" src=\"https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where u='c' AND woeid in (select woeid from geo.places(1) where text='"+city+"')&format=json&callback="+this.jsonpCallbackName+"\"></script>");
 };
 
 module.exports = DataProvider;
