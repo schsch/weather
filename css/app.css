@@ -5,6 +5,13 @@
 .app-forecast {
     margin-top: 10px;
 }
+.app-forecast-col-day {
+    width: 160px;
+}
+.app-forecast-col-temp {
+    width: 160px;
+}
+
 
 @media (min-width: 1200px) {
     .app-container {
